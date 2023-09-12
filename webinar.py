@@ -55,6 +55,15 @@ def process_row(row, params, logger, ui):
     # Log the parameter values
     log_parameter_values(row, parts, logger, ui)
 
+    # Save the document
+    app = adsk.core.Application.get()
+    doc = app.activeDocument
+
+    # Get the current document's project and folder
+    folder = doc.dataFile.parentFolder
+
+    # Save the document to the folder
+    doc.saveAs(row.name + "_modified", folder, "Modified parameters", "")
 
 
     ui.messageBox(row.name)
